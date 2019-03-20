@@ -20,14 +20,17 @@ border-bottom: thin solid #eee;
 `
 export default class BlogPage extends React.Component {
   render() {
-    // const { data } = this.props
-    // const { edges: posts } = data.allNodeBlog
+    const { data } = this.props
+    const { edges: posts } = data.blog
+    const { edges: user } = data.user
+    const { currentPage, numPages } = this.props.pageContext
+    const isFirst = currentPage === 1
+    const isLast = currentPage === numPages
+    const prevPage = currentPage - 1 === 1 ? "/" : (currentPage - 1).toString()
+    const nextPage = (currentPage + 1).toString()
+    console.log(this.props.pageContext)
 
-    // console.log(posts)
 
-    const posts = this.props.data
-
-    console.log(posts)
 
 
     return (
@@ -67,7 +70,26 @@ export default class BlogPage extends React.Component {
             </div>
             </div>
           <Container className="container blog-index">
-
+          {posts
+              .map((post) => (
+                <BlogTeaser
+                key={post.node.id}
+                post={post}
+                users={user}
+                >
+                </BlogTeaser>
+                
+              ))}
+      {!isFirst && (
+        <Link to={"blog/" + prevPage} rel="prev">
+          ← Previous Page
+        </Link>
+      )}
+      {!isLast && (
+        <Link to={"blog/" + nextPage} rel="next">
+          Next Page →
+        </Link>
+      )}
           </Container>
         </section>
       </Layout>
@@ -84,12 +106,26 @@ BlogPage.propTypes = {
 }
 
 export const blogListQuery = graphql`
-query blogListQuery {
-    allNodeBlog(limit: 6){
+query blogListQuery($skip: Int!, $limit: Int!) {
+    blog: allNodeBlog(limit: $limit, skip: $skip){
       edges{
         node{
           title
           id
+          created
+          relationships{
+            uid {
+              drupal_id
+            }
+          }
+        }
+      }
+    }
+    user: allUserUser{
+      edges{
+        node{
+          drupal_id
+          name
         }
       }
     }

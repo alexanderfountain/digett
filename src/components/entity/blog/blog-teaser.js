@@ -35,29 +35,35 @@ flex-basis:calc(50% - 20px);
 }
 `
 
-const BlogTeaser = ({post}) => {
+const BlogTeaser = ({post, users}) => {
 return(
 <BlogTeaserContainer>
   <BlogTeaserLeft>
   <div className="who">
-  <span className="blog-date">{post.node.frontmatter.date} / </span> 
-  <span className="blog-teaser-author">{post.node.frontmatter.author}</span>
+  <span className="blog-date">{post.node.created} / </span> 
+  <span className="blog-teaser-author">
+  {users.map((user) => (
+  <div>
+    {post.node.relationships.uid.drupal_id === user.node.drupal_id && <span>{user.node.name}</span>}
+  </div>          
+  ))}
+  </span>
   </div>
   <h2>
-  <Link className="has-text-primary" to={post.node.fields.slug}>
-    {post.node.frontmatter.title}
+  <Link className="has-text-primary" hred="#">
+    {post.node.title}
   </Link>
   </h2>
   <div className="teaser-body">
-  {post.node.frontmatter.description}
+  the body
   </div>
-  <Link className="btn blog-btn" to={post.node.fields.slug}>
+  <Link className="btn blog-btn" href="#">
     Read Full Article
   </Link>
   </BlogTeaserLeft>
   <BlogTeaserRight>
   <div className="blog-teaser-image">
-    <img src={post.node.frontmatter.image} />
+    {/* <img src={post.node.frontmatter.image} /> */}
     </div>
   </BlogTeaserRight>
 </BlogTeaserContainer>
@@ -65,3 +71,4 @@ return(
   }
 
 export default BlogTeaser
+

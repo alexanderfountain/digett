@@ -7,7 +7,7 @@ exports.createPages = ({ actions, graphql }) => {
 
   return graphql(`
     {
-      allMarkdownRemark(limit: 1000) {
+      markdown: allMarkdownRemark(limit: 1000) {
         edges {
           node {
             id
@@ -20,6 +20,21 @@ exports.createPages = ({ actions, graphql }) => {
           }
         }
       }
+      blog: allNodeBlog(limit: 100) {
+        edges {
+          node {
+            id
+            title
+          }
+        }
+      }
+      user: allUserUser(limit: 100) {
+        edges {
+          node {
+            name
+          }
+        }
+      }
     }
   `).then(result => {
     if (result.errors) {
@@ -28,21 +43,23 @@ exports.createPages = ({ actions, graphql }) => {
     }
 
             // Create blog-list pages
-            const poster = result.data.allNodeBlog
-            // console.log(poster)
-            // const postsPerPage = 6
-            // const numPages = Math.ceil(poster.length / postsPerPage)
-            // Array.from({ length: numPages }).forEach((_, i) => {
-            //   createPage({
-            //     path: i === 0 ? `/blog` : `/blog/${i + 1}`,
-            //     component: path.resolve("./src/pages/blog.js"),
-            //     context: {
-            //       limit: postsPerPage
-            //     },
-            //   })
-            // })
+            const poster = result.data.blog.edges
+            const postsPerPage = 6
+            const numPages = Math.ceil(poster.length / postsPerPage)
+            Array.from({ length: numPages }).forEach((_, i) => {
+              createPage({
+                path: i === 0 ? `/blog` : `/blog/${i + 1}`,
+                component: path.resolve("./src/pages/blog.js"),
+                context: {
+                  limit: postsPerPage,
+                  skip: i * postsPerPage,
+                  numPages,
+                  currentPage: i + 1
+                },
+              })
+            })
 
-    const posts = result.data.allMarkdownRemark.edges
+    const posts = result.data.markdown.edges
 
     posts.forEach(edge => {
       const id = edge.node.id
@@ -70,14 +87,5 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       node,
       value,
     })
-    if(node.frontmatter){
-      if(node.frontmatter.content.sectionvalue.markdown){
-        const markdown2 = node.frontmatter.content.sectionvalue.markdown
-        node.frontmatter.content.sectionvalue.markdown = remark()
-          .use(remarkHTML)
-          .processSync(markdown2)
-          .toString();
-      }
-    }
   }
 }
