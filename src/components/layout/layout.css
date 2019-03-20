@@ -1,0 +1,139 @@
+
+*{
+  transition: all 0.2s;
+  box-sizing:border-box;
+}
+  body{
+  padding:0px;
+  margin:0px;
+  font-family: 'Lora', serif;
+  font-weight: 400;
+  line-height: 2em;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  color: #5b5e5e;
+}
+a{
+  transition: all 0.2s;
+  border-bottom: 1px solid #232525;
+  color: #232525;
+  text-decoration: none;
+}
+a:focus, a:hover, li:focus, li:hover {
+  outline: none;
+  text-decoration: none;
+  color:#5b5e5e;
+}
+input, select, textarea {
+  background-color: #f5f5f5;
+  border: 1px solid #f5f5f5;
+  color: #5b5e5e;
+  font-family: 'Neuton', serif;
+  font-size: 18px;
+  font-size: 1.8rem;
+  font-weight: 300;
+  padding: 20px;
+  width: 100%;
+}
+h1, h2, h3, h4, h5, h6{
+  letter-spacing: -3px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  color: #232525;
+}
+h1{
+font-size:36px;
+line-height:40px;
+}
+h2{
+  font-size:32px;
+  line-height:36px;
+}
+h3{
+  font-size:28px;
+  line-height:32px;
+}
+h4{
+  font-size:24px;
+  line-height:28px;
+}
+h5{
+  font-size:22px;
+  line-height:26px;
+}
+h6{
+  font-size:20px;
+  line-height:24px;
+}
+img{
+  max-width:100%;
+  height:auto;
+}
+.hero h3{
+  font-size: 52px;
+  line-height:56px;
+  letter-spacing: -3px;
+}
+button{
+  border:0px;
+  background:transparent;
+  padding:0px;
+  margin:0px;
+}
+.footer-red:before{
+  content:'';
+  height:100%;
+  position: absolute;
+  left:-2000px;
+  background-color:rgb(232, 85, 85);
+  width: 2000px;
+  top: 0px;
+}
+.bm-menu {
+  background: #373a47;
+  font-size: 1.15em;
+  padding: 2.5em 1.5em 0;
+}
+.bm-overlay {
+  left: 0;
+  top: 0;
+}
+.bm-menu-wrap {
+  top: 0;
+}
+.bm-burger-button {
+  height: 30px;
+  left: 36px;
+  top: 36px;
+  width: 36px;
+}
+.bm-burger-bars {
+  background: #373a47;
+}
+.bm-cross {
+  background: #bdc3c7;
+}
+.bm-menu a{
+  color:white;
+  text-decoration:none;
+}
+#video-viewport {
+  width: 100%;
+  height: 500px;
+  position: relative;
+  overflow: hidden;
+  background-color: white;
+  opacity: 0.3;
+}
+#video-viewport video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -100;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

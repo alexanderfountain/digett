@@ -1,0 +1,13 @@
+.container{
+    overflow:hidden;
+    display:block;
+    @include clearfix();
+    @include container(1200px);
+    @include tablet{
+      @include container($tablet-width);
+    }
+    @include mobile{
+      @include container($mobile-width);
+      padding:0px 20px;
+    }
+  }

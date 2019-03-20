@@ -1,0 +1,58 @@
+backend:
+  name: git-gateway
+  branch: master
+
+media_folder: static/assets
+public_folder: assets
+
+collections:
+  - name: "blog"
+    label: "Blog"
+    folder: "src/pages/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Template Key", name: "templateKey", widget: "hidden", default: "blog-post"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Author", name: "author", widget: "string"}
+      - {label: "Image", name: image, widget: image, required: false}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Tags", name: "tags", widget: "list"}
+  - name: "pages"
+    label: "Pages"
+    files:
+      - file: "src/pages/index.md"
+        label: "Home Page"
+        name: "home"
+        fields:
+          - {label: "Template Key", name: "templateKey", widget: "hidden", default: "home-page"}
+          - {label: "Path", name: "path", widget: "hidden", default: "/"}
+          - {label: Intro, name: intro, widget: object, fields: [{label: Intro Image, name: introimage, widget: image},{label: Heading, name: heading, widget: string},{label: Heading 2, name: heading2, widget: string}, {label: Sub Heading, name: subheading, widget: text}, {label: Link, name: link, widget: text}]}
+          - {label: Contact, name: contact, widget: object, fields: [{label: Contact Left, name: contactleft, widget: markdown}]}
+  - name: "pages2"
+    label: "Pages2"
+    folder: "src/pages"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Template Key", name: "templateKey", widget: "hidden", default: "page"}
+      - {label: "Content", name: "content", widget: "list", types: [
+          {label: "Section", name: "section", widget: "object", fields: [
+            {label: "Section Title", name: "sectiontitle", widget: "string"},
+            {label: "Section ID", name: "sectionid", widget: "string"},
+            {label: "Page H1 Title", name: "pagetitle", widget: "boolean", default: false},
+            {label: "Default Text Color", name: "textcolor", widget: "string"},
+            {label: "Background Image", name: "backgroundimage", widget: "image"},
+            {label: "Background Color", name: "backgroundcolor", widget: "string"},
+            {label: "Section Value", name: "sectionvalue", widget: "list", types: [
+              {label: "Markdown", name: "markdown", widget: "object", fields: [
+                {label: "Markdown", name: "markdown", widget: "markdown"}
+              ]},
+              {label: "Blog List", name: "bloglist", widget: "object", description: "List of blog teasers will be rendered.", fields: [
+             ]} 
+            ]}
+          ]}
+        ]}
