@@ -36,11 +36,13 @@ flex-basis:calc(50% - 20px);
 `
 
 const BlogTeaser = ({post, users}) => {
+  const created = Date(post.node.fields.created)
 return(
 <BlogTeaserContainer>
+  
   <BlogTeaserLeft>
   <div className="who">
-  <span className="blog-date">{post.node.created} / </span> 
+  <span className="blog-date">{created} / </span> 
   <span className="blog-teaser-author">
   {users.map((user) => (
   <div>
@@ -50,7 +52,7 @@ return(
   </span>
   </div>
   <h2>
-  <Link className="has-text-primary" hred="#">
+  <Link className="has-text-primary" to={post.node.fields.slug}>
     {post.node.title}
   </Link>
   </h2>

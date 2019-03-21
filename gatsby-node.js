@@ -2,6 +2,7 @@ const path = require('path')
 const { createFilePath } = require('gatsby-source-filesystem')
 const remark = require('remark');
 const remarkHTML = require('remark-html');
+
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions
 
@@ -20,18 +21,18 @@ exports.createPages = ({ actions, graphql }) => {
           }
         }
       }
-      blog: allNodeBlog(limit: 100) {
+      blog: allNodeBlog(
+        limit: 6
+        sort: {fields: [created], order: ASC}
+        ) {
         edges {
           node {
+            fields {
+              slug
+              created
+            }
             id
             title
-          }
-        }
-      }
-      user: allUserUser(limit: 100) {
-        edges {
-          node {
-            name
           }
         }
       }
@@ -42,22 +43,44 @@ exports.createPages = ({ actions, graphql }) => {
       return Promise.reject(result.errors)
     }
 
+    const insights = result.data.blog.edges
+
+    insights.forEach(edge => {
+      const id = edge.node.id
+      createPage({
+        path: edge.node.fields.slug,
+        component: path.resolve(
+          `./src/templates/blog-post.js`
+        ),
+        // additional data can be passed via context
+        context: {
+          id,
+          slug: edge.node.fields.slug,
+        },
+      })
+    })
+
             // Create blog-list pages
             const poster = result.data.blog.edges
             const postsPerPage = 6
             const numPages = Math.ceil(poster.length / postsPerPage)
             Array.from({ length: numPages }).forEach((_, i) => {
               createPage({
-                path: i === 0 ? `/blog` : `/blog/${i + 1}`,
+                path: i === 0 ? `/insights` : `/insights/${i + 1}`,
                 component: path.resolve("./src/pages/blog.js"),
                 context: {
-                  limit: postsPerPage,
                   skip: i * postsPerPage,
+                  limit: postsPerPage,
                   numPages,
                   currentPage: i + 1
                 },
               })
             })
+
+
+
+
+
 
     const posts = result.data.markdown.edges
 
@@ -77,6 +100,7 @@ exports.createPages = ({ actions, graphql }) => {
   })
 }
 
+
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
   const nodess = node.frontmatter
@@ -86,6 +110,19 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       name: `slug`,
       node,
       value,
+    })
+  }
+  if (node.internal.type === `node__blog`) {
+    const slug = `${node.path.alias}/`
+    createNodeField({
+      node,
+      name: `slug`,
+      value: slug,
+    })
+    createNodeField({
+      node,
+      name: `created`,
+      value: created,
     })
   }
 }

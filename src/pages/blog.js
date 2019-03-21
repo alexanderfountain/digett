@@ -81,12 +81,12 @@ export default class BlogPage extends React.Component {
                 
               ))}
       {!isFirst && (
-        <Link to={"blog/" + prevPage} rel="prev">
+        <Link to={"insights/" + prevPage} rel="prev">
           ← Previous Page
         </Link>
       )}
       {!isLast && (
-        <Link to={"blog/" + nextPage} rel="next">
+        <Link to={"insights/" + nextPage} rel="next">
           Next Page →
         </Link>
       )}
@@ -107,12 +107,23 @@ BlogPage.propTypes = {
 
 export const blogListQuery = graphql`
 query blogListQuery($skip: Int!, $limit: Int!) {
-    blog: allNodeBlog(limit: $limit, skip: $skip){
+    blog: allNodeBlog(
+      limit: $limit, 
+      skip: $skip,
+      sort: {fields: [created], order: ASC}
+      ){
       edges{
         node{
+          fields{
+            slug
+            created
+          }
           title
           id
           created
+          path{
+            alias
+          }
           relationships{
             uid {
               drupal_id
