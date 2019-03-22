@@ -40,6 +40,7 @@ h6{
 `
 
 export const BlogPostTemplate = ({
+  post,
 }) => {
   return (
 
@@ -47,7 +48,7 @@ export const BlogPostTemplate = ({
 
       <section className="section" style={{paddingBottom:'40px'}}>
       <Container>
-<h1>Test</h1>
+<h1>{post.title}</h1>
       </Container>
       </section>
       </Layout>
@@ -55,11 +56,11 @@ export const BlogPostTemplate = ({
 }
 
 const BlogPost = ({ data }) => {
-
-
+  const { node: post } = data.allNodeBlog.edges[0]
+  console.log(post)
   return (
       <BlogPostTemplate
-        
+      post={post}
       />
   )
 }
@@ -67,17 +68,17 @@ const BlogPost = ({ data }) => {
 export default BlogPost
 
 export const pageQuery = graphql`
-  query BlogPostByID($slug: String!) {
+  query BlogPostByID($id: String!) {
     allNodeBlog(
-      filter: { fields: { slug: { eq: $slug } }}
+      filter: { id: { eq: $id } }
     ) {
       edges {
         node {
-          id
-          title
           fields {
             slug
           }
+          id
+          title
         }
       }
     }

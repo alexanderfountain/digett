@@ -54,8 +54,7 @@ exports.createPages = ({ actions, graphql }) => {
         ),
         // additional data can be passed via context
         context: {
-          id,
-          slug: edge.node.fields.slug,
+          id
         },
       })
     })
@@ -67,7 +66,7 @@ exports.createPages = ({ actions, graphql }) => {
             Array.from({ length: numPages }).forEach((_, i) => {
               createPage({
                 path: i === 0 ? `/insights` : `/insights/${i + 1}`,
-                component: path.resolve("./src/pages/blog.js"),
+                component: path.resolve("./src/templates/blog.js"),
                 context: {
                   skip: i * postsPerPage,
                   limit: postsPerPage,
@@ -103,7 +102,6 @@ exports.createPages = ({ actions, graphql }) => {
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
-  const nodess = node.frontmatter
   if (node.internal.type === `MarkdownRemark`) {
     const value = createFilePath({ node, getNode })
     createNodeField({
@@ -114,6 +112,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   }
   if (node.internal.type === `node__blog`) {
     const slug = `${node.path.alias}/`
+    const created = node.created
     createNodeField({
       node,
       name: `slug`,
