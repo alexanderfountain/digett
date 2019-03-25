@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `1986`,
     description: `Screaming fast sites.`,
-    siteUrl: `https://1986.io`,
+    siteUrl: `https://digett.com`,
     author: `@alexanderfountain`,
     logo: `/assets/logo_no_comp.png`,
     menuLinks:[
@@ -21,20 +21,15 @@ module.exports = {
     ],
   },
   plugins: [
-    'gatsby-transformer-sharp',
-    'gatsby-plugin-sharp',
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-drupal`,
       options: {
-        baseUrl: `https://www.digett.com/`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
+        baseUrl: `https://gatsby-digett-d8.pantheonsite.io/`,
+        filters: {
+          // collection : filter
+          blog: "filter[status][value]=false",
+        },
       },
     },
     {
@@ -61,6 +56,7 @@ module.exports = {
         name: 'pages',
       },
     },
+    `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-transformer-remark`,
@@ -111,7 +107,6 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

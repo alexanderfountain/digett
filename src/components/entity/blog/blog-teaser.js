@@ -3,6 +3,7 @@ import { Link } from 'gatsby'
 import * as variable from '../../variables'
 import styled from 'styled-components'
 
+
 const BlogTeaserContainer = styled.div`
 display:flex;
 flex-wrap:wrap;
@@ -37,9 +38,10 @@ flex-basis:calc(50% - 20px);
 
 const BlogTeaser = ({post, users}) => {
   const created = Date(post.node.fields.created)
+  console.log(post)
 return(
 <BlogTeaserContainer>
-  
+  <img src={post.node.relationships.field_teaser_image.localFile.relativePath} />
   <BlogTeaserLeft>
   <div className="who">
   <span className="blog-date">{created} / </span> 

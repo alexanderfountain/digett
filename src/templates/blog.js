@@ -127,10 +127,18 @@ query blogListQuery($skip: Int!, $limit: Int!) {
           }
           relationships{
             field_teaser_image{
-              childImageSharp {
-                fluid(maxWidth: 1000) {
-                  ...GatsbyImageSharpFluid
+              localFile{
+                absolutePath
+                relativePath
+                childImageSharp {
+                  fluid(maxWidth: 470, maxHeight: 353) {
+                    ...GatsbyImageSharpFluid
+                  }
                 }
+              }
+              uri {
+                value
+                url
               }
             }
             uid {
