@@ -28,7 +28,8 @@ export default class BlogPage extends React.Component {
     const isLast = currentPage === numPages
     const prevPage = currentPage - 1 === 1 ? "/" : (currentPage - 1).toString()
     const nextPage = (currentPage + 1).toString()
-    console.log(this.props.pageContext)
+    // console.log(this.props.pageContext)
+ 
 
 
 
@@ -110,7 +111,7 @@ query blogListQuery($skip: Int!, $limit: Int!) {
     blog: allNodeBlog(
       limit: $limit, 
       skip: $skip,
-      sort: {fields: [created], order: ASC}
+      sort: {fields: [created], order: DESC}
       ){
       edges{
         node{
@@ -125,6 +126,13 @@ query blogListQuery($skip: Int!, $limit: Int!) {
             alias
           }
           relationships{
+            field_teaser_image{
+              childImageSharp {
+                fluid(maxWidth: 1000) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
             uid {
               drupal_id
             }
