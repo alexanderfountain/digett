@@ -69,7 +69,7 @@ export default BlogPost
 
 export const pageQuery = graphql`
   query BlogPostByID($id: String!) {
-    allNodeBlog(
+    allNodeRecipe(
       filter: { id: { eq: $id } }
     ) {
       edges {

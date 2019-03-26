@@ -21,7 +21,7 @@ border-bottom: thin solid #eee;
 export default class BlogPage extends React.Component {
   render() {
     const { data } = this.props
-    const { edges: posts } = data.blog
+    const { edges: posts } = data.recipe
     const { edges: user } = data.user
     const { currentPage, numPages } = this.props.pageContext
     const isFirst = currentPage === 1
@@ -108,7 +108,7 @@ BlogPage.propTypes = {
 
 export const blogListQuery = graphql`
 query blogListQuery($skip: Int!, $limit: Int!) {
-    blog: allNodeBlog(
+    recipe: allNodeRecipe(
       limit: $limit, 
       skip: $skip,
       sort: {fields: [created], order: DESC}
@@ -126,10 +126,8 @@ query blogListQuery($skip: Int!, $limit: Int!) {
             alias
           }
           relationships{
-            field_teaser_image{
+            field_image{
               localFile{
-                absolutePath
-                relativePath
                 childImageSharp {
                   fluid(maxWidth: 470, maxHeight: 353) {
                     ...GatsbyImageSharpFluid

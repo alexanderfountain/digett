@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 import * as variable from '../../variables'
 import styled from 'styled-components'
+import Img from "gatsby-image"
 
 
 const BlogTeaserContainer = styled.div`
@@ -38,18 +39,17 @@ flex-basis:calc(50% - 20px);
 
 const BlogTeaser = ({post, users}) => {
   const created = Date(post.node.fields.created)
-  console.log(post)
+  console.log(post.node.relationships.field_image)
 return(
 <BlogTeaserContainer>
-  <img src={post.node.relationships.field_teaser_image.localFile.relativePath} />
   <BlogTeaserLeft>
   <div className="who">
   <span className="blog-date">{created} / </span> 
   <span className="blog-teaser-author">
   {users.map((user) => (
-  <div>
+    <span>
     {post.node.relationships.uid.drupal_id === user.node.drupal_id && <span>{user.node.name}</span>}
-  </div>          
+    </span>
   ))}
   </span>
   </div>
@@ -67,7 +67,7 @@ return(
   </BlogTeaserLeft>
   <BlogTeaserRight>
   <div className="blog-teaser-image">
-    {/* <img src={post.node.frontmatter.image} /> */}
+  <Img fluid={post.node.relationships.field_image.localFile.childImageSharp.fluid}/>
     </div>
   </BlogTeaserRight>
 </BlogTeaserContainer>

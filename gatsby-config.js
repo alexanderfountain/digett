@@ -25,11 +25,7 @@ module.exports = {
     {
       resolve: `gatsby-source-drupal`,
       options: {
-        baseUrl: `https://gatsby-digett-d8.pantheonsite.io/`,
-        filters: {
-          // collection : filter
-          blog: "filter[status][value]=false",
-        },
+        baseUrl: `http://dev-gatsby-digett.pantheonsite.io`,
       },
     },
     {

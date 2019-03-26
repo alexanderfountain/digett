@@ -3,6 +3,19 @@ const { createFilePath } = require('gatsby-source-filesystem')
 const remark = require('remark');
 const remarkHTML = require('remark-html');
 
+exports.onCreatePage = async ({ page, actions }) => {
+  const { createPage } = actions
+
+  // page.matchPath is a special key that's used for matching pages
+  // only on the client.
+  if (page.path.match(/^\/app/)) {
+    page.matchPath = "/app/*"
+
+    // Update the page.
+    createPage(page)
+  }
+}
+
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions
 
@@ -21,7 +34,7 @@ exports.createPages = ({ actions, graphql }) => {
           }
         }
       }
-      blog: allNodeBlog(
+      blog: allNodeRecipe(
         limit: 6
         sort: {fields: [created], order: ASC}
         ) {
@@ -110,7 +123,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       value,
     })
   }
-  if (node.internal.type === `node__blog`) {
+  if (node.internal.type === `node__recipe`) {
     const slug = `${node.path.alias}/`
     const created = node.created
     createNodeField({
