@@ -39,18 +39,17 @@ flex-basis:calc(50% - 20px);
 
 const BlogTeaser = ({post, users}) => {
   const created = Date(post.node.fields.created)
-  console.log(post.node.relationships.field_image)
 return(
 <BlogTeaserContainer>
   <BlogTeaserLeft>
   <div className="who">
   <span className="blog-date">{created} / </span> 
   <span className="blog-teaser-author">
-  {users.map((user) => (
+  {/* {users.map((user) => (
     <span>
     {post.node.relationships.uid.drupal_id === user.node.drupal_id && <span>{user.node.name}</span>}
     </span>
-  ))}
+  ))} */}
   </span>
   </div>
   <h2>
@@ -67,7 +66,7 @@ return(
   </BlogTeaserLeft>
   <BlogTeaserRight>
   <div className="blog-teaser-image">
-  <Img fluid={post.node.relationships.field_image.localFile.childImageSharp.fluid}/>
+  {/* <Img fluid={post.node.relationships.field_image.localFile.childImageSharp.fluid}/> */}
     </div>
   </BlogTeaserRight>
 </BlogTeaserContainer>
