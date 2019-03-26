@@ -17,8 +17,9 @@ class App extends Component {
       }
 
       componentDidMount() {
-        const userid = this.getUrlVars('userid')
-        this.fetchUserData(userid)
+        const purl = this.getPurl()
+        this.fetchUserData(purl)  
+        console.log(purl)
       }
 
       componentDidUpdate() {
@@ -29,7 +30,7 @@ class App extends Component {
 
       render() {
     
-        const { age, name, student } = this.state.user
+        const {name} = this.state.user
         this.state.blocks.block = this.state.blocks.block.replace('[name]', name)
         const { block } = this.state.blocks
         // block = block.replace('[*],', name)
@@ -53,6 +54,15 @@ class App extends Component {
         });
         return vars[name];
     }
+
+    getPurl() {
+      const url = window.location.hostname
+      // const url = "alex-gatsby-digett.netlify.com"
+      const name = url.substr(0, url.indexOf('-'))
+      return name
+  }
+
+    
     
       fetchUserData = (userid) => {
           fetch(`https://dev-gatsby-digett.pantheonsite.io/api/users/`+userid)
