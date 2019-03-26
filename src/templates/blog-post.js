@@ -56,7 +56,7 @@ export const BlogPostTemplate = ({
 }
 
 const BlogPost = ({ data }) => {
-  const { node: post } = data.allNodeBlog.edges[0]
+  const { node: post } = data.allNodeRecipe.edges[0]
   console.log(post)
   return (
       <BlogPostTemplate
