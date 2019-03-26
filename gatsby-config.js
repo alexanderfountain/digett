@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `1986`,
+    title: `Digett`,
     description: `Screaming fast sites.`,
     siteUrl: `https://digett.com`,
     author: `@alexanderfountain`,
