@@ -45,11 +45,11 @@ return(
   <div className="who">
   <span className="blog-date">{created} / </span> 
   <span className="blog-teaser-author">
-  {/* {users.map((user) => (
+  {users.map((user) => (
     <span>
     {post.node.relationships.uid.drupal_id === user.node.drupal_id && <span>{user.node.name}</span>}
     </span>
-  ))} */}
+  ))}
   </span>
   </div>
   <h2>
@@ -58,7 +58,7 @@ return(
   </Link>
   </h2>
   <div className="teaser-body">
-  the body
+  {post.node.field_summary.value}
   </div>
   <Link className="btn blog-btn" href="#">
     Read Full Article
@@ -66,7 +66,7 @@ return(
   </BlogTeaserLeft>
   <BlogTeaserRight>
   <div className="blog-teaser-image">
-  {/* <Img fluid={post.node.relationships.field_image.localFile.childImageSharp.fluid}/> */}
+  <Img fluid={post.node.relationships.field_image.localFile.childImageSharp.fluid}/>
     </div>
   </BlogTeaserRight>
 </BlogTeaserContainer>

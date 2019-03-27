@@ -38,8 +38,7 @@ export default class BlogPage extends React.Component {
       <Layout>
               <Helmet>
       <meta charSet="utf-8" />
-      <title>1986.io | Blog</title>
-      <link rel="canonical" href="https://1986.io/blog"></link>
+      <title>Digett | Insights</title>
       </Helmet>
         <section className="section">
             <div className="content blog-index-header" style={{
@@ -115,6 +114,9 @@ query blogListQuery($skip: Int!, $limit: Int!) {
       ){
       edges{
         node{
+          field_summary{
+            value
+          }
           fields{
             slug
             created
