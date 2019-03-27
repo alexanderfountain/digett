@@ -12,7 +12,7 @@ class App extends Component {
           name: "",
           student: "",
         },
-        blocks:"",
+        blocks:[],
       }
 
       componentDidMount() {
@@ -32,7 +32,7 @@ class App extends Component {
         const {name} = this.state.user
         const {student} = this.state.user
         // this.state.blocks.block = this.state.blocks.block.replace('[name]', name)
-        const blocks = this.state.blocks
+        const {blocks} = this.state
         console.log(blocks)
         // block = block.replace('[*],', name)
         // console.log(this.state.user)
@@ -43,8 +43,9 @@ class App extends Component {
                   <Container style={{marginTop:'125px'}}>
                   <h1>Hi {name}!</h1>
                   {blocks
-              .map((block) => (
+              .map((block, index) => (
                 <div
+                key={index}
                   style={{backgroundColor:block.field_background_color, color:'black', padding:'20px', marginBottom:'20px'}}>
                   <h2>{block.field_section_title}</h2>
                 <div dangerouslySetInnerHTML={{__html: block.body.replace('[name]', name).replace('[student]', student)}} />
