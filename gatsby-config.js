@@ -13,10 +13,14 @@ module.exports = {
       {
         name:'app',
         link:'/app'
-     },
+      },
       {
-         name:'insights',
-         link:'/insights'
+        name:'appbuild',
+        link:'/appbuild'
+      },
+      {
+         name:'recipes',
+         link:'/recipes'
       },
       {
          name:'contact',

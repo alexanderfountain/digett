@@ -14,7 +14,17 @@ exports.onCreatePage = async ({ page, actions }) => {
     // Update the page.
     createPage(page)
   }
+
+  if (page.path.match(/^\/appbuild/)) {
+    
+    page.matchPath = "/appbuild/*"
+
+    // Update the page.
+    createPage(page)
+  }
 }
+
+
 
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions
@@ -49,12 +59,38 @@ exports.createPages = ({ actions, graphql }) => {
           }
         }
       }
+      users: allApiUsers{
+        edges{
+          node{
+            fields{
+              slug
+            }
+            field_purl
+          }
+        }
+      }
     }
   `).then(result => {
     if (result.errors) {
       result.errors.forEach(e => console.error(e.toString()))
       return Promise.reject(result.errors)
     }
+
+    const users = result.data.users.edges
+
+    users.forEach(edge => {
+      const id = edge.node.id
+      createPage({
+        path: edge.node.fields.slug,
+        component: path.resolve(
+          `./src/templates/users.js`
+        ),
+        // additional data can be passed via context
+        context: {
+          id
+        },
+      })
+    })
 
     const insights = result.data.blog.edges
 
@@ -122,6 +158,14 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       name: `slug`,
       node,
       value,
+    })
+  }
+  if (node.internal.type === `api__users`) {
+    const slug = `/users/${node.field_purl}/`
+    createNodeField({
+      node,
+      name: `slug`,
+      value: slug,
     })
   }
   if (node.internal.type === `node__recipe`) {
