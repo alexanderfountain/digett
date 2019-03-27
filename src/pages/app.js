@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import Layout from "../components/layout/layout"
+import Container from '../components/layout/container'
 
 class App extends Component {
     state = {
@@ -11,15 +12,13 @@ class App extends Component {
           name: "",
           student: "",
         },
-        blocks:{
-            block: "",
-        }
+        blocks:"",
       }
 
       componentDidMount() {
         const purl = this.getPurl()
         this.fetchUserData(purl)  
-        console.log(purl)
+
       }
 
       componentDidUpdate() {
@@ -31,17 +30,27 @@ class App extends Component {
       render() {
     
         const {name} = this.state.user
-        this.state.blocks.block = this.state.blocks.block.replace('[name]', name)
-        const { block } = this.state.blocks
+        const {student} = this.state.user
+        // this.state.blocks.block = this.state.blocks.block.replace('[name]', name)
+        const blocks = this.state.blocks
+        console.log(blocks)
         // block = block.replace('[*],', name)
         // console.log(this.state.user)
     
         return (
             <div>
                 <Layout>
-                <div style={{marginTop:'100px'}}>
-                <div dangerouslySetInnerHTML={{__html: block}} />
-              </div>
+                  <Container style={{marginTop:'125px'}}>
+                  <h1>Hi {name}!</h1>
+                  {blocks
+              .map((block) => (
+                <div
+                  style={{backgroundColor:block.field_background_color, color:'black', padding:'20px', marginBottom:'20px'}}>
+                  <h2>{block.field_section_title}</h2>
+                <div dangerouslySetInnerHTML={{__html: block.body.replace('[name]', name).replace('[student]', student)}} />
+                </div>
+          ))}
+              </Container>
               </Layout>
             </div>
         )
@@ -105,14 +114,9 @@ class App extends Component {
     .then(res => res.json())
     .then(
       (result) => {
-        console.log(result)
         this.setState({
           blockloading: false,
-            blocks:{
-              ...this.state.blocks,
-              block: result[0].body,
-            }
-          
+            blocks: result,
         });
       },
       // Note: it's important to handle errors here

@@ -11,6 +11,7 @@ import Img from "gatsby-image"
 export default class UsersBlocks extends React.Component {
   render() {
     const { name } = this.props.pageContext
+    const { student } = this.props.pageContext
     const { data } = this.props
     const blocks = data.blocks.edges
     console.log(this.props.pageContext)
@@ -26,7 +27,7 @@ export default class UsersBlocks extends React.Component {
                   key={block.node.id}
                   style={{backgroundColor:block.node.field_background_color, color:'black', padding:'20px', marginBottom:'20px'}}>
                   <h2>{block.node.field_section_title}</h2>
-                <div dangerouslySetInnerHTML={{__html: block.node.body.replace('[name]', name)}} />
+                <div dangerouslySetInnerHTML={{__html: block.node.body.replace('[name]', name).replace('[student]', student)}} />
                 </div>
           ))}
         </Container>
