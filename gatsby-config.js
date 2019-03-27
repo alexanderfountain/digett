@@ -4,12 +4,16 @@ module.exports = {
     description: `Screaming fast sites.`,
     siteUrl: `https://digett.com`,
     author: `@alexanderfountain`,
-    logo: `/assets/logo_no_comp.png`,
+    logo: `/assets/digett-logo.png`,
     menuLinks:[
       {
          name:'home',
          link:'/'
       },
+      {
+        name:'app',
+        link:'/app'
+     },
       {
          name:'insights',
          link:'/insights'

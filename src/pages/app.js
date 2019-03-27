@@ -58,7 +58,13 @@ class App extends Component {
     getPurl() {
       const url = window.location.hostname
       // const url = "alex-gatsby-digett.netlify.com"
-      const name = url.substr(0, url.indexOf('-'))
+      var name = url.substr(0, url.indexOf('-'))
+      if(name == ''){
+          name = 'mark'
+      }
+      else{
+          name = name
+      }
       return name
   }
 

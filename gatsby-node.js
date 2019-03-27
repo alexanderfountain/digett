@@ -56,6 +56,22 @@ exports.createPages = ({ actions, graphql }) => {
       return Promise.reject(result.errors)
     }
 
+    const insights = result.data.blog.edges
+
+    insights.forEach(edge => {
+      const id = edge.node.id
+      createPage({
+        path: edge.node.fields.slug,
+        component: path.resolve(
+          `./src/templates/blog-post.js`
+        ),
+        // additional data can be passed via context
+        context: {
+          id
+        },
+      })
+    })
+
 
             // Create blog-list pages
             const poster = result.data.blog.edges
