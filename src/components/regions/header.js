@@ -5,6 +5,7 @@ import Container from '../layout/container'
 import Menu from '../menu'
 import styled from "styled-components"
 import Image from "../image"
+import logo from "../../images/digett-logo.png";
 
 const HeaderStyle = styled.header`
   background-color:rgba(255, 255, 255, 0.9);
@@ -36,7 +37,7 @@ const HeaderStyle = styled.header`
   }
 `;
 
-const Header = ({ logo }) => (
+const Header = () => (
   <HeaderStyle>
       <Container className="header-menu-logo">
       <Link className="logo"to="/"><img src={logo} alt="logo" /></Link>

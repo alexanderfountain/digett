@@ -29,13 +29,47 @@ module.exports = {
       resolve: 'gatsby-source-apiserver',
       options: {
         // Type prefix of entities from server
-        typePrefix: 'internal__',
+        typePrefix: 'api__',
   
         // The url, this should be the endpoint you are attempting to pull data from
         url: `https://dev-gatsby-digett.pantheonsite.io/api/users/all`,
 
         name: `users`,
-      }
+
+        method: 'get',
+
+        headers: {
+          'Content-Type': 'application/json'
+        },
+  
+        // Request body
+        data: {
+
+        },
+      },
+    },
+    {
+      resolve: 'gatsby-source-apiserver',
+      options: {
+        // Type prefix of entities from server
+        typePrefix: 'api__',
+  
+        // The url, this should be the endpoint you are attempting to pull data from
+        url: `https://dev-gatsby-digett.pantheonsite.io/api/v1/build-blocks`,
+
+        name: `blocks`,
+
+        method: 'get',
+
+        headers: {
+          'Content-Type': 'application/json'
+        },
+  
+        // Request body
+        data: {
+
+        },
+      },
     },
     `gatsby-plugin-react-helmet`,
     {
