@@ -81,12 +81,12 @@ export default class BlogPage extends React.Component {
                 
               ))}
       {!isFirst && (
-        <Link to={"insights/" + prevPage} rel="prev">
+        <Link to={"recipes/" + prevPage} rel="prev">
           ← Previous Page
         </Link>
       )}
       {!isLast && (
-        <Link to={"insights/" + nextPage} rel="next">
+        <Link to={"recipes/" + nextPage} rel="next">
           Next Page →
         </Link>
       )}

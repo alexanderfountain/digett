@@ -45,7 +45,6 @@ exports.createPages = ({ actions, graphql }) => {
         }
       }
       blog: allNodeRecipe(
-        limit: 6
         sort: {fields: [created], order: ASC}
         ) {
         edges {
@@ -66,6 +65,9 @@ exports.createPages = ({ actions, graphql }) => {
               slug
             }
             field_purl
+            field_age
+            field_student_type
+            field_name
           }
         }
       }
@@ -80,6 +82,10 @@ exports.createPages = ({ actions, graphql }) => {
 
     users.forEach(edge => {
       const id = edge.node.id
+      const purl = edge.node.field_purl
+      const age = edge.node.field_age
+      const  student = edge.node.field_student_type
+      const  name = edge.node.field_name
       createPage({
         path: edge.node.fields.slug,
         component: path.resolve(
@@ -87,7 +93,11 @@ exports.createPages = ({ actions, graphql }) => {
         ),
         // additional data can be passed via context
         context: {
-          id
+          id,
+          purl,
+          age,
+          student,
+          name
         },
       })
     })
@@ -115,7 +125,7 @@ exports.createPages = ({ actions, graphql }) => {
             const numPages = Math.ceil(poster.length / postsPerPage)
             Array.from({ length: numPages }).forEach((_, i) => {
               createPage({
-                path: i === 0 ? `/insights` : `/insights/${i + 1}`,
+                path: i === 0 ? `/recipes` : `/recipes/${i + 1}`,
                 component: path.resolve("./src/templates/blog.js"),
                 context: {
                   skip: i * postsPerPage,

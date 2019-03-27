@@ -15,8 +15,12 @@ module.exports = {
         link:'/app'
       },
       {
-        name:'appbuild',
-        link:'/appbuild'
+        name:'mark',
+        link:'/users/mark'
+      },
+      {
+        name:'alex',
+        link:'/users/alex'
       },
       {
          name:'recipes',
