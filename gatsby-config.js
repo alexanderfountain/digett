@@ -4,7 +4,7 @@ module.exports = {
     description: `Screaming fast sites.`,
     siteUrl: `https://digett.com`,
     author: `@alexanderfountain`,
-    logo: `../src/images/digett-logo.png`,
+    logo: `${__dirname}/src/images/digett-logo.png`,
     menuLinks:[
       {
          name:'home',
@@ -25,6 +25,18 @@ module.exports = {
     ],
   },
   plugins: [
+    {
+      resolve: 'gatsby-source-apiserver',
+      options: {
+        // Type prefix of entities from server
+        typePrefix: 'internal__',
+  
+        // The url, this should be the endpoint you are attempting to pull data from
+        url: `https://dev-gatsby-digett.pantheonsite.io/api/users/all`,
+
+        name: `users`,
+      }
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-drupal`,
