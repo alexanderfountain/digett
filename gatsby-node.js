@@ -58,7 +58,11 @@ exports.createPages = ({ actions, graphql }) => {
           }
         }
       }
-      users: allApiUsers{
+      users: allApiUsers(
+        filter: {
+          id: {ne: "dummy"}
+        }
+      ){
         edges{
           node{
             fields{

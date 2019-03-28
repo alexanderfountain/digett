@@ -3,6 +3,7 @@ title: Home Page
 templateKey: page
 content:
   - backgroundimage: /assets/front-page-1.jpg
+    backgroundcolor: #cccccc
     pagetitle: true
     sectionid: hero
     sectiontitle: Home Page Section Title
@@ -40,13 +41,6 @@ content:
 
           * Quo tandem modo?
         type: markdown
-    type: section
-  - backgroundcolor: '#cccccc'
-    sectionid: bloglist
-    sectiontitle: Recent Blogs
-    sectionvalue:
-      - type: bloglist
-    textcolor: '#000000'
     type: section
 ---
 

@@ -13,8 +13,7 @@ export default class UsersBlocks extends React.Component {
     const { name } = this.props.pageContext
     const { student } = this.props.pageContext
     const { data } = this.props
-    const blocks = data.blocks.edges
-    console.log(this.props.pageContext)
+    const {edges: blocks} = data.blocks
     console.log(data)
 
     return (
@@ -45,7 +44,7 @@ export const pageQuery = graphql`
   query UserQuery($age: String, $student: String) {
     blocks: allApiBlocks(
       filter: {
-        field_age: {eq: $age}, field_student_type: {eq: $student}
+        field_age: {eq: $age}, field_student_type: {eq: $student}, id: {ne: "dummy"}
       }
       ){
       edges{

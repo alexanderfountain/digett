@@ -55,8 +55,6 @@ export const PageQuery = graphql`
           sectiontitle
           sectionid
           backgroundimage
-          backgroundcolor
-          textcolor
           sectionvalue{
             type
             markdown
