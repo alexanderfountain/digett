@@ -37,6 +37,7 @@ class App extends Component {
         // block = block.replace('[*],', name)
         // console.log(this.state.user)
     
+        
         return (
             <div>
                 <Layout>
